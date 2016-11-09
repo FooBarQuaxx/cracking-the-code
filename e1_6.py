@@ -2,10 +2,11 @@
 import pytest
 
 
+# TODO: do it in place like suggested by the assignment.
 def solution(M, N):
     res = [[] for _ in range(N)]
     for i in range(N):
-            res[i] = [M[j][N-i-1] for j in range(N)]
+        res[i] = [M[j][N-i-1] for j in range(N)]
     return res
 
 
