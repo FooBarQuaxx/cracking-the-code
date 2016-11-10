@@ -32,5 +32,14 @@ class Node(object):
             n = n.next
             yield n
 
+
+    @classmethod
+    def from_list(cls, l):
+        assert len(l) > 0, 'Paramter must have at least one element on it.'
+        ll = cls(l[0])
+        [ll.append(x) for x in l[1:]]
+        return ll
+
+
     def __repr__(self):
         return str(self._as_list())
