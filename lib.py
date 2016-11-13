@@ -91,6 +91,10 @@ class Stack(object):
     def __len__(self):
         return len(self._data)
 
+    @property
+    def size(self):
+        return len(self)
+
 
 class Queue(object):
 
