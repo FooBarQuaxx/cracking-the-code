@@ -55,6 +55,15 @@ class StackSet(object):
     def stack_max_size(self):
         return self._stack_max_size
 
+    def pop_at(self, at):
+        assert self.stacks_num > 0, "The stack is empty."
+        assert 0 <= at < self.stacks_num, "The stack index must between 0 and %s." % self.stacks_num
+        at_stack = self._stacks[at]
+        value = at_stack.pop()
+        if at_stack.size == 0:
+            del self._stacks[at]
+        return value
+
 
 def test_create_stack_set():
     s = StackSet(1)
@@ -93,3 +102,19 @@ def test_stack_set_pop():
     x = s.pop()
     assert x == 10
     assert s.stacks_num == 2
+
+def test_stack_set_pop_at():
+    s = StackSet(1)
+    with pytest.raises(AssertionError):
+        s.pop_at(0)
+
+    s = StackSet(5, [x for x in range(6)]) #  [0, 1, 2, 3, 4], [5]
+    with pytest.raises(AssertionError):
+        s.pop_at(3)
+        s.pop_at(-1)
+
+    assert s.pop_at(1) == 5
+    assert s.stacks_num == 1
+
+    assert s.pop() == 4
+    assert s.pop_at(0) == 3
